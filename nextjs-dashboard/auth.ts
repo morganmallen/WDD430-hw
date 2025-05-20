@@ -6,6 +6,11 @@ import type { User } from "@/app/lib/definitions";
 import bcrypt from "bcrypt";
 import postgres from "postgres";
 
+// For debugging env variables
+console.log('Auth.ts - Environment check:');
+console.log('NEXTAUTH_SECRET exists:', !!process.env.NEXTAUTH_SECRET);
+console.log('AUTH_SECRET exists:', !!process.env.AUTH_SECRET);
+
 // Improve database connection with better error handling
 async function getPostgresClient() {
   try {
@@ -64,8 +69,4 @@ export const { auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  // Handle both AUTH_SECRET and NEXTAUTH_SECRET for flexibility
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
-  // Enable debugging to help identify issues
-  debug: true,
 });
